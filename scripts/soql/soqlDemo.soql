@@ -1,0 +1,5 @@
+
+select id, name, createdDate from account order by createdDate desc limit 3
+
+select id, name, phone from Account where phone != null
+
