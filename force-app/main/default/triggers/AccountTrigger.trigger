@@ -1,5 +1,24 @@
 trigger AccountTrigger on Account (before insert, before update, after insert, after update) {
     
+
+    /* --- SECOND WAY FOR WEBSITE UPDATE COUNT RIGHT BELOW EXAMPLE ---
+    if (trigger.isAfter && trigger.isUpdate) {
+        system.debug('after update trigger');
+
+        integer count = 0;
+        for (Integer i = 0; i < trigger.new.size(); i++) {
+            if (trigger.old[i].Website != trigger.new[i].Website) {
+                System.debug('Website field updated');
+                count++;
+            }
+            
+        }
+        System.debug(count);
+
+    }
+    */
+
+    /*
     if (trigger.isAfter && trigger.isUpdate) {
         system.debug('after update trigger');
 
@@ -26,6 +45,8 @@ trigger AccountTrigger on Account (before insert, before update, after insert, a
         }
         system.debug('website updated for # of accounts => ' + countwebsite);
     }
+
+    */
 
 }
     /*
