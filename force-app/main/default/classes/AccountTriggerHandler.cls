@@ -46,12 +46,7 @@ public class AccountTriggerHandler {
                     //set vip for each contact with Account's vip field.
                 for (contact eachCon : allContacts) {
                     //get account's vip field
-                    id contactAccId = eachCon.AccountId;
-                    Account newAcc = accTriggerNewMap.get(contactAccId);
-                    boolean accVIP = newAcc.vip__c;
-
-                    boolean accVIP2 = accTriggerNewMap.get(eachCon.AccountId).vip__c;
-                    eachCon.vip__c = accVIP;
+                    eachCon.vip__c= accTriggerNewMap.get(eachCon.AccountId).vip__c;
                 }
                 
                 update allContacts;
