@@ -8,7 +8,7 @@ trigger AccountTrigger on Account (before insert, before update, after insert, a
         AccountTriggerHandler.updateVIPforContacts(Trigger.New, Trigger.Old, Trigger.NewMap, Trigger.OldMap);
     }
     
-}
+
 
     
 
@@ -214,3 +214,4 @@ trigger AccountTrigger on Account (before insert, before update, after insert, a
     }
     */
     
+}

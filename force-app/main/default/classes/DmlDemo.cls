@@ -50,9 +50,7 @@ public class DmlDemo {
         st.Requested_by_date__c = date.newInstance(2022, 12, 5);
         st.Salesforce_Project__c = sp.id; //here we connect
         insert st;
-
         System.debug('New st is ' + st);
-        
     }
     public static void dmlInsertMultiple_Right() {
         List<Account> lstAccount = new List<Account>();
