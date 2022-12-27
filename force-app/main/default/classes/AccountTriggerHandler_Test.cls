@@ -35,6 +35,7 @@ public class AccountTriggerHandler_Test {
         List<Account> updateYesList = [select name, Active__c, description from Account where Active__c = 'Yes'];
         system.assertEquals('Account is now active. Enjoy buddy!!', updateYesList[0].Description);
     }
+    @isTest
     private static void testUpdateVIPContacts() {
         //create Accounts.
         Account acc1 = new account();
