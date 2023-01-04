@@ -1,16 +1,32 @@
 public class SalesforceProjectTriggerHandler {
     public static void createDefaultTicket(List<salesforce_project__c> spTriggerNew) {
-        List<Salesforce_Ticket__c>  listST = new List<Salesforce_Ticket__c>();
+        
+        try {
+            List<Salesforce_Ticket__c>  listST = new List<Salesforce_Ticket__c>();
 
-        for (salesforce_project__c eachSP : spTriggerNew) {
-            Salesforce_Ticket__c newST = new Salesforce_Ticket__c();
-            newST.Subject__c = 'Default ticket';
-            newST.Salesforce_Project__c = eachSP.Id;
-            listST.add(newST);
+            for (salesforce_project__c eachSP : spTriggerNew) {
+                Salesforce_Ticket__c newST = new Salesforce_Ticket__c();
+                newST.Subject__c = 'Default ticket';
+                newST.Salesforce_Project__c = eachSP.Id;
+                //newST.Priority__c = 'Medium';
+                listST.add(newST);
+            }
+            if (!listST.isEmpty()) {
+                List<Database.SaveResult> results = Database.insert(listST, false);
+                for (Database.SaveResult eachResult : results) {
+                    if (eachResult.isSuccess()) {
+                        System.debug('Inserted successfully, record id is ' + eachResult.getId());
+                    } else {
+                        System.debug('errorred out, errors are ' + eachResult.getErrors());
+                    }
+                }
+            } 
+        } catch (Exception ex) {
+            for (salesforce_project__c sp : spTriggerNew) {
+                sp.addError('Error in creating default ticket. Please contact admin'); 
+            }
         }
-        if (!listST.isEmpty()) {
-            insert listST;
-        }
+         
     }
     // while updating salesforce project's status "complete", it should give error and not allow save the project if any of the tickets of that project is not completed.
     public static void completeSPvalidation(List<salesforce_project__c> spTriggerNew, List<salesforce_project__c> spTriggerOld, 
