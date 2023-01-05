@@ -3,12 +3,16 @@ public class SalesforceProjectTriggerHandler {
         
         try {
             List<Salesforce_Ticket__c>  listST = new List<Salesforce_Ticket__c>();
+            // get the deault org value using 'getOrgDefaults' method of custom settings
+            DefaultTicketInfo__c defaultValues = DefaultTicketInfo__c.getOrgDefaults();
 
             for (salesforce_project__c eachSP : spTriggerNew) {
                 Salesforce_Ticket__c newST = new Salesforce_Ticket__c();
-                newST.Subject__c = 'Default ticket';
+                // set the ticket subject = custom setting value's subject
+                newST.Subject__c = defaultValues.Subject__c; // make it synamic using custom settings
                 newST.Salesforce_Project__c = eachSP.Id;
-                //newST.Priority__c = 'Medium';
+                newST.description__c = defaultValues.Decription__c;
+                newST.Priority__c = 'Medium';
                 listST.add(newST);
             }
             if (!listST.isEmpty()) {
